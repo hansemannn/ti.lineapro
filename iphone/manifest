@@ -7,7 +7,7 @@ apiversion: 2
 architectures: armv7 arm64 i386 x86_64
 description: The Titanium Mobile implementation of the LineaPro SDK.
 author: Hans Knoechel
-license: -
+license: Apache 2.0
 copyright: 2015 by info-team GmbH
 
 # these should not be edited
