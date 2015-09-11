@@ -1,0 +1,19 @@
+## Change Log
+
+### v1.0.0 (2015/07/31)
+- Support new methods:
+  - setCharging
+  - getCharging
+  - getFirmwareInformation
+  - getBatteryCapacity
+  - setBarcodeScanMode
+  - getBarcodeScanMode
+- Support new eventListener:
+  - scannedBarcode
+  - connectionStateChanged 
+- Support new constants:
+  - MODE_SINGLE\_SCAN
+  - MODE_MULTI\_SCAN
+  - MODE_MOTION\_DETECT
+  - MODE_SINGLE\_SCAN\_RELEASE
+  - MODE_MULTI\_SCAN\_NO\_DUPLICATES
