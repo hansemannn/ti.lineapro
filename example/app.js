@@ -1,3 +1,15 @@
+/*
+ * In order to communicate with the scanner, make sure to add the following
+ * lines into the <ios> section of your tiapp.xml or in your custom Info.plist.
+
+		<key>UISupportedExternalAccessoryProtocols</key>
+	  <array>
+	      <string>com.datecs.linea.pro.msr</string>
+	      <string>com.datecs.linea.pro.bar</string>
+	  </array>
+		
+ */
+
 var linea = require("de.infoteam.lineapro");
 
 linea.addEventListener("barcodeScanned", onScannedBarcode);
@@ -36,7 +48,7 @@ function setScanMode(value) {
 	dia.show();
 	dia.addEventListener("click", function(e) {
 		var mode = linea.MODE_SINGLE_SCAN;
-		
+
 		switch(e.index) {
 			case 0: mode = linea.MODE_SINGLE_SCAN;
 			break;
@@ -49,7 +61,7 @@ function setScanMode(value) {
 			case 4: mode = linea.MODE_MULTI_SCAN_NO_DUPLICATES;
 			break;
 		}
-		
+
 		linea.setBarcodeScanMode(mode);
 	});
 }
