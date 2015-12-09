@@ -2,10 +2,10 @@
 # this is your module manifest and used by Titanium
 # during compilation, packaging, distribution, etc.
 #
-version: 1.0.1
+version: 1.1.0
 apiversion: 2
 architectures: armv7 arm64 i386 x86_64
-description: The Titanium Mobile implementation of the LineaPro SDK.
+description: The Titanium Mobile implementation of the LineaPro iOS SDK.
 author: Hans Knoechel
 license: Apache 2.0
 copyright: 2015 by info-team GmbH
@@ -15,4 +15,4 @@ name: TiLineaPro
 moduleid: de.infoteam.lineapro
 guid: df751577-610c-4379-9c2d-3609baf58835
 platform: iphone
-minsdk: 4.0.0.GA
+minsdk: 5.1.0.GA
