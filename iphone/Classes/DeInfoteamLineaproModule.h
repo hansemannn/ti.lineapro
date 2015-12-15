@@ -18,13 +18,30 @@
     DTDevices *linea;
 }
 
-- (NSDictionary*) firmwareInformation;
-- (int) batteryCapacity;
+- (NSDictionary*)firmwareInformation;
 
-- (BOOL) charging;
-- (void) setCharging: (id) charging;
+- (int)batteryCapacity;
 
-- (int) barcodeScanMode;
-- (void) setBarcodeScanMode: (id) mode;
+- (NSNumber*)charging;
+
+- (void)setCharging:(id)charging;
+
+- (int)barcodeScanMode;
+
+- (void)setBarcodeScanMode:(id)mode;
+
+- (void)setPassThroughSync:(id)value;
+
+- (NSNumber*)getPassThroughSync:(id)arg;
+
+- (NSNumber*)isPresent:(id)unused;
+
+- (void)connect:(id)unused;
+
+- (void)disconnect:(id)unused;
+
+- (void)startScanner:(id)unused;
+
+- (void)stopScanner:(id)unused;
 
 @end

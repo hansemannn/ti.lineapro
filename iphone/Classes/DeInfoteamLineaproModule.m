@@ -54,6 +54,62 @@
     }
 }
 
+- (NSNumber*)getPassThroughSync:(id)arg
+{
+    ENSURE_TYPE(arg, NSArray);
+    
+    id value = [arg objectAtIndex:0];
+    ENSURE_TYPE(value, NSNumber);
+    
+    NSError *error = nil;
+    BOOL success = [linea getPassThroughSync:[TiUtils boolValue:value] error:&error];
+    
+    if (success == NO) {
+        NSLog(@"[ERROR] Ti.LineaPro: The pass-trough sync could not be received: %@", [TiUtils messageFromError:error]);
+    }
+
+    return NUMBOOL(success);
+}
+
+- (NSNumber*)isPresent:(id)unused
+{
+    return NUMBOOL([linea isPresent:[self barcodeScanMode]]);
+}
+
+- (void)connect:(id)unused
+{
+    [linea connect];
+}
+
+- (void)disconnect:(id)unused
+{
+    [linea disconnect];
+}
+
+- (void)startScanner:(id)unused
+{
+    ENSURE_UI_THREAD(startScanner, unused);
+    
+    NSError* error = nil;
+    BOOL success = [linea barcodeStartScan:&error];
+    
+    if (success == NO) {
+        NSLog(@"[ERROR] TiLineaPro: Scanner could not be started: %@",[TiUtils messageFromError:error]);
+    }
+}
+
+- (void)stopScanner:(id)unused
+{
+    ENSURE_UI_THREAD(stopScanner, unused);
+    
+    NSError* error = nil;
+    BOOL success = [linea barcodeStopScan:&error];
+    
+    if (success == NO) {
+        NSLog(@"[ERROR] TiLineaPro: Scanner could not be stopped: %@",[TiUtils messageFromError:error]);
+    }
+}
+
 -(int)batteryCapacity
 {
     NSError* error = nil;
@@ -67,19 +123,19 @@
     }
 }
 
--(BOOL)charging
+- (NSNumber*)charging
 {
     BOOL chargingValue = NO;
     BOOL success = [linea getCharging:&chargingValue error:nil];
     
     if (success == YES) {
-        return chargingValue;
+        return NUMBOOL(chargingValue);
     } else {
-        return NO;
+        return NUMBOOL(NO);
     }
 }
 
--(void)setCharging:(id)charging
+- (void)setCharging:(id)charging
 {
     ENSURE_UI_THREAD(setCharging, charging);
     
@@ -117,7 +173,7 @@
     BOOL success = [linea barcodeSetScanMode:[TiUtils intValue:mode] error:&error];
     
     if (success == NO) {
-        NSLog(@"[ERROR] TiLineaPro: Barcode could not be set: %s",[TiUtils messageFromError:error]);
+        NSLog(@"[ERROR] TiLineaPro: Barcode could not be set: %@",[TiUtils messageFromError:error]);
     }
 }
 
@@ -175,45 +231,6 @@
     
     if ([self _hasListeners:@"barcodeScanned"]) {
         [self fireEvent:@"barcodeScanned" withObject:event];
-    }
-}
-
-- (NSNumber*)isPresent:(id)unused
-{
-    return NUMBOOL([linea isPresent:[self barcodeScanMode]]);
-}
-
-- (void)connect:(id)unused
-{
-    [linea connect];
-}
-
-- (void)disconnect:(id)unused
-{
-    [linea disconnect];
-}
-
-- (void)startScanner:(id)unused
-{
-    ENSURE_UI_THREAD(startScanner, unused);
-    
-    NSError* error = nil;
-    BOOL success = [linea barcodeStartScan:&error];
-    
-    if (success == NO) {
-        NSLog(@"[ERROR] TiLineaPro: Scanner could not be started: %s",[TiUtils messageFromError:error]);
-    }
-}
-
-- (void)stopScanner:(id)unused
-{
-    ENSURE_UI_THREAD(stopScanner, unused);
-    
-    NSError* error = nil;
-    BOOL success = [linea barcodeStopScan:&error];
-    
-    if (success == NO) {
-        NSLog(@"[ERROR] TiLineaPro: Scanner could not be stopped: %s",[TiUtils messageFromError:error]);
     }
 }
 
