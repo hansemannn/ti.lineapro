@@ -17,21 +17,21 @@
 
 - (NSDictionary*)firmwareInformation;
 
-- (int)batteryCapacity;
+- (id)batteryCapacity;
 
-- (NSNumber*)charging;
+- (id)charging;
 
 - (void)setCharging:(id)charging;
 
-- (int)barcodeScanMode;
+- (id)barcodeScanMode;
 
 - (void)setBarcodeScanMode:(id)mode;
 
 - (void)setPassThroughSync:(id)value;
 
-- (NSNumber*)getPassThroughSync:(id)value;
+- (id)getPassThroughSync:(id)value;
 
-- (NSNumber*)isPresent:(id)unused;
+- (id)isPresent:(id)unused;
 
 - (void)connect:(id)unused;
 

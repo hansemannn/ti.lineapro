@@ -10,99 +10,124 @@
 		
  */
 
-var linea = require("de.infoteam.lineapro");
+ var linea = require("de.infoteam.lineapro");
+ var currentState = linea.CONNECTION_STATE_DISCONNECTED;
 
-linea.addEventListener("barcodeScanned", onScannedBarcode);
-linea.addEventListener("connectionStateChanged", onConnectionStateChange);
+ linea.addEventListener("barcodeScanned", onScannedBarcode);
+ linea.addEventListener("connectionStateChanged", onConnectionStateChange);
 
-function onScannedBarcode(e) {
-	alert(e);
-}
+ initializeConnection();
 
-function onConnectionStateChange(e) {
-	alert("Connection state changed to: " + e.state);
-}
+ function initializeConnection() {
+ 	linea.connect();
+ 	linea.setPassThroughSync(false);
+ }
 
-function enableCharging() {
-	setCharging(true);
-}
+ function onScannedBarcode(e) {
+ 	alert(e);
+ }
 
-function disableCharging() {
-	setCharging(false);
-}
+ function configureScanBeep() {
+ 		linea.configureScanBeep({
+ 			enabled: true,
+ 			volume: 90,
+ 			data: [2200, 150, 2770, 150]
+ 		});
+ }
 
-function setCharging(value) {
-	linea.setCharging(value);
-}
+ function onConnectionStateChange(e) {
+ 	alert("Connection state changed to: " + e.state);
+ 	currentState = e.state;
+ }
 
-function getCharging() {
-	alert(linea.getCharging());
-}
+ function enableCharging() {
+ 	setCharging(true);
+ }
 
-function setScanMode(value) {
-	var dia = Ti.UI.createOptionDialog({
-		title: "Select Scan Mode",
-		options: ["MODE_SINGLE_SCAN", "MODE_MULTI_SCAN", "MODE_MOTION_DETECT", "MODE_SINGLE_SCAN_RELEASE", "MODE_MULTI_SCAN_NO_DUPLICATES", "Cancel"],
-		cancel: 5
-	});
-	dia.show();
-	dia.addEventListener("click", function(e) {
-		var mode = linea.MODE_SINGLE_SCAN;
+ function disableCharging() {
+ 	setCharging(false);
+ }
 
-		switch(e.index) {
-			case 0: mode = linea.MODE_SINGLE_SCAN;
-			break;
-			case 1: mode = linea.MODE_MULTI_SCAN;
-			break;
-			case 2: mode = linea.MODE_MOTION_DETECT;
-			break;
-			case 3: mode = linea.MODE_SINGLE_SCAN_RELEASE;
-			break;
-			case 4: mode = linea.MODE_MULTI_SCAN_NO_DUPLICATES;
-			break;
-		}
+ function playSound() {
+ 	linea.playSound({
+ 		volume: 20,
+ 		data: [5200, 150, 2770, 150]
+ 	});
+ }
 
-		linea.setBarcodeScanMode(mode);
-	});
-}
+ function setCharging(value) {
+ 	linea.setCharging(value);
+ }
 
-function getScanMode() {
-	alert(linea.getBarcodeScanMode());
-}
+ function getCharging() {
+ 	alert(linea.getCharging());
+ }
 
-function getFirmwareInformation() {
-	alert(linea.getFirmwareInformation());
-}
+ function setScanMode(value) {
+ 	var dia = Ti.UI.createOptionDialog({
+ 		title: "Select Scan Mode",
+ 		options: ["MODE_SINGLE_SCAN", "MODE_MULTI_SCAN", "MODE_MOTION_DETECT", "MODE_SINGLE_SCAN_RELEASE", "MODE_MULTI_SCAN_NO_DUPLICATES", "Cancel"],
+ 		cancel: 5
+ 	});
+ 	dia.show();
+ 	dia.addEventListener("click", function(e) {
+ 		var mode = linea.MODE_SINGLE_SCAN;
+ 		
+ 		switch(e.index) {
+ 			case 0: mode = linea.MODE_SINGLE_SCAN;
+ 			break;
+ 			case 1: mode = linea.MODE_MULTI_SCAN;
+ 			break;
+ 			case 2: mode = linea.MODE_MOTION_DETECT;
+ 			break;
+ 			case 3: mode = linea.MODE_SINGLE_SCAN_RELEASE;
+ 			break;
+ 			case 4: mode = linea.MODE_MULTI_SCAN_NO_DUPLICATES;
+ 			break;
+ 		}
+ 		
+ 		linea.setBarcodeScanMode(mode);
+ 	});
+ }
 
-function getBatteryCapacity() {
-	alert(linea.getBatteryCapacity());
-}
+ function getScanMode() {
+ 	alert(linea.getBarcodeScanMode());
+ }
 
-function createButton(title, action) {
-	var button = Ti.UI.createButton({
-		title : title,
-		height : 40,
-		top : 30
+ function getFirmwareInformation() {
+ 	alert(linea.getFirmwareInformation());
+ }
 
-	});
+ function getBatteryCapacity() {
+ 	alert(linea.getBatteryCapacity());
+ }
 
-	button.addEventListener("click", action);
+ function createButton(title, action) {
+ 	var button = Ti.UI.createButton({
+ 		title : title,
+ 		height : 40,
+ 		top : 30
 
-	return button;
-}
+ 	});
 
-/* -- Demo UI -- */
-var win = Ti.UI.createWindow({
-	backgroundColor : "#fff",
-	layout : "vertical"
-});
+ 	button.addEventListener("click", action);
 
-win.add(createButton("Set Scan Mode", setScanMode));
-win.add(createButton("Get Scan Mode", getScanMode));
-win.add(createButton("Enable Charging", enableCharging));
-win.add(createButton("Disable Charging", disableCharging));
-win.add(createButton("Get Charging State", getCharging));
-win.add(createButton("Get Firmware Infos", getFirmwareInformation));
-win.add(createButton("Get Battery Capacity", getBatteryCapacity));
+ 	return button;
+ }
 
-win.open();
+ /* -- Demo UI -- */
+ var win = Ti.UI.createWindow({
+ 	backgroundColor : "#fff",
+ 	layout : "vertical"
+ });
+
+ win.add(createButton("Set Scan Mode", setScanMode));
+ win.add(createButton("Get Scan Mode", getScanMode));
+ win.add(createButton("Enable Charging", enableCharging));
+ win.add(createButton("Disable Charging", disableCharging));
+ win.add(createButton("Get Charging State", getCharging));
+ win.add(createButton("Get Firmware Infos", getFirmwareInformation));
+ win.add(createButton("Get Battery Capacity", getBatteryCapacity));
+ win.add(createButton("Play Sound", playSound));
+ win.add(createButton("Configure Scan Beep", configureScanBeep));
+ win.open();

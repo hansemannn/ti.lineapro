@@ -13,21 +13,23 @@
 
 @implementation DeInfoteamLineaproModule
 
+#define DEFAULT_BEEP {2200, 150, 2770, 150}
+
 #pragma mark Internal
 
--(id)moduleGUID
+- (id)moduleGUID
 {
 	return @"df751577-610c-4379-9c2d-3609baf58835";
 }
 
--(NSString*)moduleId
+- (NSString*)moduleId
 {
 	return @"de.infoteam.lineapro";
 }
 
 #pragma mark Lifecycle
 
--(void)startup
+- (void)startup
 {
 	[super startup];
 	NSLog(@"[DEBUG] %@ loaded",self);
@@ -39,10 +41,6 @@
         // Configure device
         linea = [DTDevices sharedDevice];
         [linea setDelegate:self];
-        
-        // Preconnect
-        [self connect:nil];
-        [self setPassThroughSync:@0];
     }
     
     return linea;
@@ -50,7 +48,7 @@
 
 #pragma mark Public APIs
 
--(void)setPassThroughSync:(id)value
+- (void)setPassThroughSync:(id)value
 {
     ENSURE_TYPE(value, NSNumber);
     
@@ -77,7 +75,7 @@
     return NUMBOOL(success);
 }
 
-- (NSNumber*)isPresent:(id)unused
+- (id)isPresent:(id)unused
 {
     return NUMBOOL([[self lineaInstance] isPresent:[self barcodeScanMode]]);
 }
@@ -126,11 +124,11 @@
     
     ENSURE_ARG_OR_NIL_FOR_KEY(volume, args, @"volume", NSNumber);
 
-    int *data = [DeInfoteamLineaproModule integerArrayFromNative:[args objectForKey:@"data"]];
+    int beepData[] = DEFAULT_BEEP;
     
     BOOL success = [[self lineaInstance] playSound:[TiUtils doubleValue:volume def:50]
-                                          beepData:data
-                                            length:sizeof(data)
+                                          beepData:beepData
+                                            length:sizeof(beepData)
                                              error:&error];
     
     if (!success) {
@@ -140,41 +138,41 @@
 
 - (void)configureScanBeep:(id)args
 {
-    ENSURE_SINGLE_ARG(args, NSArray);
-    ENSURE_UI_THREAD(configureScanBeep, args);
+    ENSURE_SINGLE_ARG(args, NSDictionary);
 
     NSNumber *enabled;
     NSNumber *volume;
     NSArray *data;
-    NSError *error = nil;
 
     ENSURE_ARG_FOR_KEY(enabled, args, @"enabled", NSNumber);
     ENSURE_ARG_OR_NIL_FOR_KEY(volume, args, @"volume", NSNumber);
     ENSURE_ARG_OR_NIL_FOR_KEY(data, args, @"data", NSArray);
     
-    int *beepData = [DeInfoteamLineaproModule integerArrayFromNative:[args objectForKey:@"data"]];
-
-    BOOL success = [[self lineaInstance] barcodeSetScanBeep:[TiUtils boolValue:enabled def:YES]
-                                                     volume:[TiUtils doubleValue:volume def:50]
-                                                   beepData:beepData
-                                                     length:sizeof(beepData)
-                                                      error:&error];
-    
-    if (!success) {
-        NSLog(@"[ERROR] TiLineaPro: Scan beep could not be configured: %@",[TiUtils messageFromError:error]);
-    }
+    TiThreadPerformOnMainThread(^{
+        NSError *error = nil;
+        int beepData[] = DEFAULT_BEEP;
+        BOOL success = [[self lineaInstance] barcodeSetScanBeep:[TiUtils boolValue:enabled def:YES]
+                                                         volume:[TiUtils doubleValue:volume def:50]
+                                                       beepData:beepData
+                                                         length:sizeof(beepData)
+                                                          error:&error];
+        
+        if (!success) {
+            NSLog(@"[ERROR] TiLineaPro: Scan beep could not be configured: %@",[error localizedDescription]);
+        }
+    }, NO);
 }
 
--(int)batteryCapacity
+- (id)batteryCapacity
 {
     NSError* error = nil;
     DTBatteryInfo *info = [[self lineaInstance] getBatteryInfo:&error];
     
     if (info != nil) {
-        return [info capacity];
+        return NUMINT([info capacity]);
     } else {
         NSLog(@"[ERROR] TiLineaPro: Unable to get battery capacity: %@", [TiUtils messageFromError:error]);
-        return -1;
+        return NUMINT(-1);
     }
 }
 
@@ -195,20 +193,21 @@
 {
     ENSURE_UI_THREAD(setCharging, charging);
     
+    NSError *error = nil;
     [charging retain];
     
     BOOL chargingValue = [TiUtils boolValue:charging def:NO];
     BOOL success = [[self lineaInstance] setCharging:chargingValue
-                                               error:nil];
+                                               error:&error];
     
     [charging release];
     
     if (success == NO) {
-        NSLog(@"[ERROR] TiLineaPro: Charging could not be set.");
+        NSLog(@"[ERROR] TiLineaPro: Charging could not be set: %@" , [error localizedDescription]);
     }
 }
 
-- (int)barcodeScanMode
+- (id)barcodeScanMode
 {
     __block NSError *error = nil;
     __block int mode = MODE_SINGLE_SCAN;
@@ -220,10 +219,10 @@
     }, YES);
     
     if (success == YES) {
-        return mode;
+        return NUMINT(mode);
     } else {
-        NSLog(@"[ERROR] TiLineaPro: Barcode scan mode could not be determined: %@", [TiUtils messageFromError:error]);
-        return -1;
+        NSLog(@"[ERROR] TiLineaPro: Barcode scan mode could not be determined.");
+        return NUMINT(-1);
     }
 }
 - (void)setBarcodeScanMode:(id)mode
@@ -239,13 +238,13 @@
     }
 }
 
-- (NSDictionary*)firmwareInformation
+- (id)firmwareInformation
 {
     return @{
-        @"firmwareRevision": [[self lineaInstance] firmwareRevision],
+        @"firmwareRevision": [[self lineaInstance] firmwareRevision] ?: [NSNull null],
         @"firmwareRevisionNumber": NUMINT([[self lineaInstance] firmwareRevisionNumber]),
-        @"devicModel": [[self lineaInstance] deviceModel],
-        @"deviceName": [[self lineaInstance] deviceName]
+        @"devicModel": [[self lineaInstance] deviceModel] ?: [NSNull null],
+        @"deviceName": [[self lineaInstance] deviceName] ?: [NSNull null]
     };
 }
 
@@ -295,7 +294,7 @@
 + (int*)integerArrayFromNative:(NSArray*)arr
 {
     if (!arr || arr && [arr count] == 0) {
-        int data[] = {2200, 150, 2770, 150};
+        int data[] = DEFAULT_BEEP;
         return *data;
     }
 
@@ -303,7 +302,7 @@
   
     for (id beep in arr) {
         ENSURE_TYPE(beep, NSNumber);
-        data[[arr indexOfObject:beep]] = NUMINT(beep);
+        data[[arr indexOfObject:NUMINT(beep)]] = NUMINT(beep);
     }
     
     return *data;
