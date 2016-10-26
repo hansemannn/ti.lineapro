@@ -2,7 +2,7 @@
  * TiLineaPro
  *
  * Created by Hans Knoechel
- * Copyright (c) 2015 infoteam GmbH. All rights reserved.
+ * Copyright (c) 2015-2016 infoteam GmbH. All rights reserved.
  */
 
 #import "TiModule.h"
@@ -12,9 +12,6 @@
 
 @interface DeInfoteamLineaproModule : TiModule
 {
-    NSString *current_barcode;
-    NSString *current_tracks;
-    
     DTDevices *linea;
 }
 
@@ -32,7 +29,7 @@
 
 - (void)setPassThroughSync:(id)value;
 
-- (NSNumber*)getPassThroughSync:(id)arg;
+- (NSNumber*)getPassThroughSync:(id)value;
 
 - (NSNumber*)isPresent:(id)unused;
 
@@ -43,5 +40,9 @@
 - (void)startScanner:(id)unused;
 
 - (void)stopScanner:(id)unused;
+
+- (void)playSound:(id)args;
+
+- (void)configureScanBeep:(id)args;
 
 @end

@@ -26,12 +26,12 @@
 		24DD6CFA1134B3F500162E58 /* DeInfoteamLineaproModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.m */; };
 		24DE9E1111C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */; };
 		24DE9E1211C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */; };
-		3A6EA6EB1B42D1670001375F /* DTDevices.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6EA6E71B42D1670001375F /* DTDevices.h */; };
-		3A6EA6EC1B42D1670001375F /* EMVPrivateTags.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6EA6E81B42D1670001375F /* EMVPrivateTags.h */; };
-		3A6EA6ED1B42D1670001375F /* EMVTags.h in Headers */ = {isa = PBXBuildFile; fileRef = 3A6EA6E91B42D1670001375F /* EMVTags.h */; };
-		3A6EA6EE1B42D1670001375F /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3A6EA6EA1B42D1670001375F /* libdtdev.a */; };
 		AA747D9F0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+		DB0CA81B1DC0E49000EF174D /* DTDevices.h in Headers */ = {isa = PBXBuildFile; fileRef = DB0CA8141DC0E49000EF174D /* DTDevices.h */; };
+		DB0CA81C1DC0E49000EF174D /* EMVPrivateTags.h in Headers */ = {isa = PBXBuildFile; fileRef = DB0CA8151DC0E49000EF174D /* EMVPrivateTags.h */; };
+		DB0CA81D1DC0E49000EF174D /* EMVTags.h in Headers */ = {isa = PBXBuildFile; fileRef = DB0CA8161DC0E49000EF174D /* EMVTags.h */; };
+		DB0CA8211DC0E49000EF174D /* libdtdev.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DB0CA81A1DC0E49000EF174D /* libdtdev.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,13 +50,13 @@
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
 		24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeInfoteamLineaproModuleAssets.h; path = Classes/DeInfoteamLineaproModuleAssets.h; sourceTree = "<group>"; };
 		24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeInfoteamLineaproModuleAssets.m; path = Classes/DeInfoteamLineaproModuleAssets.m; sourceTree = "<group>"; };
-		3A6EA6E71B42D1670001375F /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = Library/DTDevices.h; sourceTree = "<group>"; };
-		3A6EA6E81B42D1670001375F /* EMVPrivateTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMVPrivateTags.h; path = Library/EMVPrivateTags.h; sourceTree = "<group>"; };
-		3A6EA6E91B42D1670001375F /* EMVTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMVTags.h; path = Library/EMVTags.h; sourceTree = "<group>"; };
-		3A6EA6EA1B42D1670001375F /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = Library/libdtdev.a; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeInfoteamLineapro_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libDeInfoteamLineapro.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libDeInfoteamLineapro.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB0CA8141DC0E49000EF174D /* DTDevices.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTDevices.h; path = Classes/LineaProSDK/DTDevices.h; sourceTree = "<group>"; };
+		DB0CA8151DC0E49000EF174D /* EMVPrivateTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMVPrivateTags.h; path = Classes/LineaProSDK/EMVPrivateTags.h; sourceTree = "<group>"; };
+		DB0CA8161DC0E49000EF174D /* EMVTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EMVTags.h; path = Classes/LineaProSDK/EMVTags.h; sourceTree = "<group>"; };
+		DB0CA81A1DC0E49000EF174D /* libdtdev.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libdtdev.a; path = Classes/LineaProSDK/libdtdev.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,8 +64,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB0CA8211DC0E49000EF174D /* libdtdev.a in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
-				3A6EA6EE1B42D1670001375F /* libdtdev.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,7 +84,6 @@
 			isa = PBXGroup;
 			children = (
 				08FB77AEFE84172EC02AAC07 /* Classes */,
-				3A6EA6EF1B42D16B0001375F /* SDK */,
 				32C88DFF0371C24200C91783 /* Other Sources */,
 				0867D69AFE84028FC02AAC07 /* Frameworks */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -103,6 +102,7 @@
 		08FB77AEFE84172EC02AAC07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3A6EA6EF1B42D16B0001375F /* LineaPro SDK */,
 				24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */,
 				24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */,
 				24DD6CF71134B3F500162E58 /* DeInfoteamLineaproModule.h */,
@@ -120,15 +120,15 @@
 			name = "Other Sources";
 			sourceTree = "<group>";
 		};
-		3A6EA6EF1B42D16B0001375F /* SDK */ = {
+		3A6EA6EF1B42D16B0001375F /* LineaPro SDK */ = {
 			isa = PBXGroup;
 			children = (
-				3A6EA6E71B42D1670001375F /* DTDevices.h */,
-				3A6EA6E81B42D1670001375F /* EMVPrivateTags.h */,
-				3A6EA6E91B42D1670001375F /* EMVTags.h */,
-				3A6EA6EA1B42D1670001375F /* libdtdev.a */,
+				DB0CA8141DC0E49000EF174D /* DTDevices.h */,
+				DB0CA8151DC0E49000EF174D /* EMVPrivateTags.h */,
+				DB0CA8161DC0E49000EF174D /* EMVTags.h */,
+				DB0CA81A1DC0E49000EF174D /* libdtdev.a */,
 			);
-			name = SDK;
+			name = "LineaPro SDK";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,11 +138,11 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3A6EA6EC1B42D1670001375F /* EMVPrivateTags.h in Headers */,
-				3A6EA6EB1B42D1670001375F /* DTDevices.h in Headers */,
+				DB0CA81C1DC0E49000EF174D /* EMVPrivateTags.h in Headers */,
+				DB0CA81B1DC0E49000EF174D /* DTDevices.h in Headers */,
 				AA747D9F0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch in Headers */,
 				24DD6CF91134B3F500162E58 /* DeInfoteamLineaproModule.h in Headers */,
-				3A6EA6ED1B42D1670001375F /* EMVTags.h in Headers */,
+				DB0CA81D1DC0E49000EF174D /* EMVTags.h in Headers */,
 				24DE9E1111C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,7 +257,10 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)/Classes/LineaProSDK",
+				);
 				OTHER_CFLAGS = (
 					"-DDEBUG",
 					"-DTI_POST_1_2",
@@ -295,7 +298,10 @@
 				GCC_WARN_UNUSED_VARIABLE = NO;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)$(LOCAL_LIBRARY_DIR)",
+					"$(PROJECT_DIR)/Classes/LineaProSDK",
+				);
 				OTHER_CFLAGS = "-DTI_POST_1_2";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = DeInfoteamLineapro;
