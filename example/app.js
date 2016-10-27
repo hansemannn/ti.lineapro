@@ -36,7 +36,7 @@
  }
 
  function onConnectionStateChange(e) {
- 	alert("Connection state changed to: " + e.state);
+ 	alert("Connection state changed to: " + e.state + " (" + e.description.toUpperCase() + ")");
  	currentState = e.state;
  }
 
@@ -51,7 +51,7 @@
  function playSound() {
  	linea.playSound({
  		volume: 20,
- 		data: [5200, 150, 2770, 150]
+ 		data: [5200, 150, 1770, 150, 5200, 150]
  	});
  }
 
