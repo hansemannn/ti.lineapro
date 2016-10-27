@@ -27,9 +27,9 @@
 
 - (void)setBarcodeScanMode:(id)mode;
 
-- (void)setPassThroughSync:(id)value;
+- (id)passThroughSync;
 
-- (id)getPassThroughSync:(id)value;
+- (void)setPassThroughSync:(id)value;
 
 - (id)isPresent:(id)unused;
 

@@ -60,24 +60,22 @@
     }
 }
 
-- (NSNumber*)getPassThroughSync:(id)value
+- (NSNumber*)passThroughSync
 {
-    ENSURE_SINGLE_ARG(value, NSNumber);
-    ENSURE_UI_THREAD(getPassThroughSync, value);
-    
     NSError *error = nil;
-    BOOL success = [[self lineaInstance] getPassThroughSync:[TiUtils boolValue:value] error:&error];
+    BOOL enabled = NO;
+    BOOL success = [[self lineaInstance] getPassThroughSync:&enabled error:&error];
     
     if (success == NO) {
         NSLog(@"[ERROR] Ti.LineaPro: The pass-trough sync could not be received: %@", [TiUtils messageFromError:error]);
     }
 
-    return NUMBOOL(success);
+    return NUMBOOL(enabled);
 }
 
 - (id)isPresent:(id)unused
 {
-    return NUMBOOL([[self lineaInstance] isPresent:[self barcodeScanMode]]);
+    return NUMBOOL([(DTDevices*)[self lineaInstance] isPresent:[TiUtils intValue:[self barcodeScanMode]]]);
 }
 
 - (void)connect:(id)unused
@@ -121,13 +119,29 @@
 
     NSError *error = nil;
     NSNumber *volume;
-    
+    NSArray *data;
+  
     ENSURE_ARG_OR_NIL_FOR_KEY(volume, args, @"volume", NSNumber);
-
-    int beepData[] = DEFAULT_BEEP;
+    ENSURE_ARG_OR_NIL_FOR_KEY(data, args, @"data", NSArray);
+    
+    // Copy Obj-C NSArray to int[]
+    // TODO: Move to own utility
+    const int count = data ? (int)[data count] : 0;
+    int *beepData = NULL;
+    beepData = new int[count];
+    int defaultBeepData[4] = DEFAULT_BEEP;
+    
+    for (int i = 0; i < count; ++i) {
+        beepData[i] = [[data objectAtIndex:i] intValue];
+    }
+    
+    // If there is no data, we re-assign it
+    if (count == 0) {
+        delete[] beepData;
+    }
     
     BOOL success = [[self lineaInstance] playSound:[TiUtils doubleValue:volume def:50]
-                                          beepData:beepData
+                                          beepData:count == 0 ? defaultBeepData : beepData
                                             length:sizeof(beepData)
                                              error:&error];
     
@@ -139,7 +153,9 @@
 - (void)configureScanBeep:(id)args
 {
     ENSURE_SINGLE_ARG(args, NSDictionary);
+    ENSURE_UI_THREAD(playSound, args);
 
+    NSError *error = nil;
     NSNumber *enabled;
     NSNumber *volume;
     NSArray *data;
@@ -148,19 +164,31 @@
     ENSURE_ARG_OR_NIL_FOR_KEY(volume, args, @"volume", NSNumber);
     ENSURE_ARG_OR_NIL_FOR_KEY(data, args, @"data", NSArray);
     
-    TiThreadPerformOnMainThread(^{
-        NSError *error = nil;
-        int beepData[] = DEFAULT_BEEP;
-        BOOL success = [[self lineaInstance] barcodeSetScanBeep:[TiUtils boolValue:enabled def:YES]
-                                                         volume:[TiUtils doubleValue:volume def:50]
-                                                       beepData:beepData
-                                                         length:sizeof(beepData)
-                                                          error:&error];
-        
-        if (!success) {
-            NSLog(@"[ERROR] TiLineaPro: Scan beep could not be configured: %@",[error localizedDescription]);
-        }
-    }, NO);
+    // Copy Obj-C NSArray to int[]
+    // TODO: Move to own utility
+    const int count = data ? (int)[data count] : 0;
+    int *beepData = NULL;
+    beepData = new int[count];
+    int defaultBeepData[4] = DEFAULT_BEEP;
+    
+    for (int i = 0; i < count; ++i) {
+        beepData[i] = [[data objectAtIndex:i] intValue];
+    }
+    
+    // If there is no data, we re-assign it
+    if (count == 0) {
+        delete[] beepData;
+    }
+    
+    BOOL success = [[self lineaInstance] barcodeSetScanBeep:[TiUtils boolValue:enabled def:YES]
+                                                     volume:[TiUtils doubleValue:volume def:50]
+                                                   beepData:count == 0 ? defaultBeepData : beepData
+                                                     length:sizeof(beepData)
+                                                      error:&error];
+    
+    if (!success) {
+        NSLog(@"[ERROR] TiLineaPro: Scan beep could not be configured: %@",[error localizedDescription]);
+    }
 }
 
 - (id)batteryCapacity
@@ -289,23 +317,6 @@
             @"barcodeTypeAsText": [[self lineaInstance] barcodeType2Text:type]
         }];
     }
-}
-
-+ (int*)integerArrayFromNative:(NSArray*)arr
-{
-    if (!arr || arr && [arr count] == 0) {
-        int data[] = DEFAULT_BEEP;
-        return *data;
-    }
-
-    int data[] = {};
-  
-    for (id beep in arr) {
-        ENSURE_TYPE(beep, NSNumber);
-        data[[arr indexOfObject:NUMINT(beep)]] = NUMINT(beep);
-    }
-    
-    return *data;
 }
 
 MAKE_SYSTEM_PROP(MODE_SINGLE_SCAN, MODE_SINGLE_SCAN);

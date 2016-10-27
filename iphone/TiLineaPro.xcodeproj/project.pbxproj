@@ -23,7 +23,7 @@
 
 /* Begin PBXBuildFile section */
 		24DD6CF91134B3F500162E58 /* DeInfoteamLineaproModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DD6CF71134B3F500162E58 /* DeInfoteamLineaproModule.h */; };
-		24DD6CFA1134B3F500162E58 /* DeInfoteamLineaproModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.m */; };
+		24DD6CFA1134B3F500162E58 /* DeInfoteamLineaproModule.mm in Sources */ = {isa = PBXBuildFile; fileRef = 24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.mm */; };
 		24DE9E1111C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h in Headers */ = {isa = PBXBuildFile; fileRef = 24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */; };
 		24DE9E1211C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m in Sources */ = {isa = PBXBuildFile; fileRef = 24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */; };
 		AA747D9F0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* DeInfoteamLineapro_Prefix.pch */; };
@@ -46,7 +46,7 @@
 
 /* Begin PBXFileReference section */
 		24DD6CF71134B3F500162E58 /* DeInfoteamLineaproModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeInfoteamLineaproModule.h; path = Classes/DeInfoteamLineaproModule.h; sourceTree = "<group>"; };
-		24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeInfoteamLineaproModule.m; path = Classes/DeInfoteamLineaproModule.m; sourceTree = "<group>"; };
+		24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = DeInfoteamLineaproModule.mm; path = Classes/DeInfoteamLineaproModule.mm; sourceTree = "<group>"; };
 		24DD6D1B1134B66800162E58 /* titanium.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = titanium.xcconfig; sourceTree = "<group>"; };
 		24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DeInfoteamLineaproModuleAssets.h; path = Classes/DeInfoteamLineaproModuleAssets.h; sourceTree = "<group>"; };
 		24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DeInfoteamLineaproModuleAssets.m; path = Classes/DeInfoteamLineaproModuleAssets.m; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 				24DE9E0F11C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.h */,
 				24DE9E1011C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m */,
 				24DD6CF71134B3F500162E58 /* DeInfoteamLineaproModule.h */,
-				24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.m */,
+				24DD6CF81134B3F500162E58 /* DeInfoteamLineaproModule.mm */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -217,7 +217,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				24DD6CFA1134B3F500162E58 /* DeInfoteamLineaproModule.m in Sources */,
+				24DD6CFA1134B3F500162E58 /* DeInfoteamLineaproModule.mm in Sources */,
 				24DE9E1211C5FE74003F90F6 /* DeInfoteamLineaproModuleAssets.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
