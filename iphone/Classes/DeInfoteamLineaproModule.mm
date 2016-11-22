@@ -153,7 +153,7 @@
 - (void)configureScanBeep:(id)args
 {
     ENSURE_SINGLE_ARG(args, NSDictionary);
-    ENSURE_UI_THREAD(playSound, args);
+    ENSURE_UI_THREAD(configureScanBeep, args);
 
     NSError *error = nil;
     NSNumber *enabled;
