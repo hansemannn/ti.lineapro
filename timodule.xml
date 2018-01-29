@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ti:module xmlns:ti="http://ti.appcelerator.org" xmlns:android="http://schemas.android.com/apk/res/android">
+	<iphone>
+		<!-- Require iOS 8.2 or later -->
+		<min-ios-ver>8.2</min-ios-ver>
+	</iphone>
+	<android xmlns:android="http://schemas.android.com/apk/res/android">
+	</android>
+</ti:module>
