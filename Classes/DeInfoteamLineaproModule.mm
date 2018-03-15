@@ -235,6 +235,22 @@
   }
 }
 
+- (void)setAutoOffWhenIdle:(id)args
+{
+  ENSURE_UI_THREAD(setAutoOffWhenIdle, args);
+  ENSURE_SINGLE_ARG(args, NSDictionary);
+
+  NSTimeInterval timeIdle = [TiUtils intValue:@"timeIdle" properties:args def:5400];
+  NSTimeInterval timeDisconnected = [TiUtils intValue:@"timeDisconnected" properties:args def:30];
+  NSError *error = nil;
+
+  BOOL success = [[self lineaInstance] setAutoOffWhenIdle:timeIdle whenDisconnected:timeDisconnected error:&error];
+
+  if (success == NO) {
+    NSLog(@"[ERROR] TiLineaPro: Auto-off when idle could not be set: %@", [error localizedDescription]);
+  }
+}
+
 - (id)barcodeScanMode
 {
   __block NSError *error = nil;

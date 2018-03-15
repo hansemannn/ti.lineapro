@@ -58,6 +58,13 @@ function setCharging(value) {
   linea.setCharging(value);
 }
 
+function setAutoOffWhenIdle() {
+  linea.setAutoOffWhenIdle({
+    timeIdle: 5400, // In seconds, default
+    timeDisconnected: 30 // In seconds, default
+  });
+}
+
 function getCharging() {
   alert(linea.getCharging());
 }
@@ -127,6 +134,7 @@ var win = Ti.UI.createWindow({
 
 win.add(createButton('Set Scan Mode', setScanMode));
 win.add(createButton('Get Scan Mode', getScanMode));
+win.add(createButton('Set Auto Off (when idle)', setAutoOffWhenIdle));
 win.add(createButton('Enable Charging', enableCharging));
 win.add(createButton('Disable Charging', disableCharging));
 win.add(createButton('Get Charging State', getCharging));

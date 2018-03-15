@@ -22,6 +22,8 @@
 
 - (void)setCharging:(id)charging;
 
+- (void)setAutoOffWhenIdle:(id)args;
+
 - (id)barcodeScanMode;
 
 - (void)setBarcodeScanMode:(id)mode;
